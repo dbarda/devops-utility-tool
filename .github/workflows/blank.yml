@@ -1,6 +1,6 @@
 name: Check Runner IP
 
-# This 'on' section tells GitHub WHEN to run. 
+# This 'on' section tells GitHub WHEN to run 
 # You need at least one of these to avoid that error.
 on:
   push:
