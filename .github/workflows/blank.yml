@@ -1,17 +1,15 @@
-name: Check Runner IP
-
-on: 
-  # Allows you to run this manually from the Actions tab
+on:
   workflow_dispatch:
-  # Runs automatically on every push to the main branch
-  push:
-    branches: [ "main" ]
+    inputs:
+      local_ip:
+        description: 'Type your current local IP'
+        required: true
 
 jobs:
   display-ip:
     runs-on: windows-latest
     steps:
-      - name: Fetch Public IP
+      - name: Fetch and Compare IPs
         run: |
-          echo "The public IP of this GitHub Runner is:"
-          curl https://ifconfig.me
+          echo "The IP I typed in is: ${{ github.event.inputs.local_ip }}"
+          echo "The GitHub Runner's IP is actually: $(curl -s https://ifconfig.me)"
