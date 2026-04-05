@@ -1,32 +1,18 @@
-name: IP Comparison Tool
+name: Check Runner IP
 
+# This 'on' section tells GitHub WHEN to run. 
+# You need at least one of these to avoid that error.
 on:
-  # Allows you to trigger this manually from the Actions tab
-  workflow_dispatch:
-    inputs:
-      manual_ip_input:
-        description: 'Paste your local Public IP here for comparison'
-        required: false
-        default: '0.0.0.0'
+  push:
+    branches: [ "main" ]    # Runs when you push to the main branch
+  workflow_dispatch:        # Adds a manual 'Run' button in the UI
 
 jobs:
-  network-check:
-    runs-on: windows-latest
-    
+  check-ip-job:
+    runs-on: ubuntu-latest
     steps:
-      - name: 1. Get GitHub Runner Public IP
+      - name: Show Public IP
         run: |
-          RUNNER_IP=$(curl -s https://ifconfig.me)
-          echo "GITHUB_RUNNER_IP=$RUNNER_IP" >> $GITHUB_ENV
-          echo "The GitHub Runner is working from IP: $RUNNER_IP"
-
-      - name: 2. Show Manually Entered IP
-        run: |
-          echo "The IP you entered manually is: ${{ github.event.inputs.manual_ip_input }}"
-
-      - name: 3. Explain the Difference
-        run: |
-          echo "--- EXPLANATION ---"
-          echo "If the IPs above are different, it is because GitHub runs on a cloud server."
-          echo "Your 'ipconfig' shows your internal network (Apt Number)."
-          echo "GitHub's 'curl' shows its cloud data center (Building Address)."
+          echo "GitHub Runner Public IP is:"
+          curl -s https://ifconfig.me
+          echo -e "\nNote: This is the cloud runner's IP, not your home IP."
