@@ -1,18 +1,26 @@
-name: Check Runner IP
+name: Colored Hello World
 
-# This 'on' section tells GitHub WHEN to run 
-# You need at least one of these to avoid that error.
 on:
-  push:
-    branches: [ "main" ]    # Runs when you push to the main branch
-  workflow_dispatch:        # Adds a manual 'Run' button in the UI
+  workflow_dispatch: # Allows you to run this manually from the Actions tab
 
 jobs:
-  check-ip-job:
+  print-colors:
     runs-on: ubuntu-latest
     steps:
-      - name: Show Public IP
+      - name: Say Hello in Colors
         run: |
-          echo "GitHub Runner Public IP is:"
-          curl -s https://ifconfig.me
-          echo -e "\nNote: This is the cloud runner's IP, not your home IP."
+          # Define ANSI Color Codes
+          RED='\033[0;31m'
+          YELLOW='\033[0;33m'
+          GREEN='\033[0;32m'
+          BLACK='\033[0;30m'
+          PINK='\033[0;35m'
+          BLUE='\033[0;34m'
+          NC='\033[0m' # No Color (Reset)
+
+          echo -e "${RED}Hello World (Red)${NC}"
+          echo -e "${YELLOW}Hello World (Yellow)${NC}"
+          echo -e "${GREEN}Hello World (Green)${NC}"
+          echo -e "${BLACK}Hello World (Black)${NC}"
+          echo -e "${PINK}Hello World (Pink)${NC}"
+          echo -e "${BLUE}Hello World (Blue)${NC}"
