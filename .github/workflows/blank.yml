@@ -1,15 +1,8 @@
-on:
-  workflow_dispatch:
-    inputs:
-      local_ip:
-        description: 'Type your current local IP'
-        required: true
-
 jobs:
-  display-ip:
-    runs-on: windows-latest
+  check-ips:
+    runs-on: ubuntu-latest
     steps:
-      - name: Fetch and Compare IPs
+      - name: Compare IPs
         run: |
-          echo "The IP I typed in is: ${{ github.event.inputs.local_ip }}"
-          echo "The GitHub Runner's IP is actually: $(curl -s https://ifconfig.me)"
+          echo "This is the GitHub Runner's IP: $(curl -s https://ifconfig.me)"
+          echo "This is MY actual Public IP: ${{ secrets.MY_OFFICE_IP }}"
